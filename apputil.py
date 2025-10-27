@@ -3,10 +3,24 @@ import numpy as np
 
 class GroupEstimate(object):
     def __init__(self, estimate):
+        '''
+        Constructor for GroupEstimate class
+
+        Parameters:
+        estimate (str): 'mean' or 'median'
+
+        Return value:
+        No return value
+        '''
+
+        # Define what are valid estimate inputs
         valid_estimate = ['mean', 'median']
+
+        # Raise an error if the estimate input isn't valid
         if estimate.lower() not in valid_estimate:
             raise ValueError(f'Estimate must be one of {valid_estimate}')
 
+        # Assign the estimate to the 'self' object
         self.estimate = estimate.lower()
     
     def fit(self, X, y):

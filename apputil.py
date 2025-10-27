@@ -24,16 +24,33 @@ class GroupEstimate(object):
         self.estimate = estimate.lower()
     
     def fit(self, X, y):
+        '''
+        Method that takes in 
+
+        Parameters:
+        X (pandas.DataFrame): Contains categorical data
+        y (list or np.array): A list or array of data
+
+        Return value:
+        self: Technically not necessary to answer the question
+        but included to make things look complete.
+        '''
+        # If y input is a list, convert it to an array
         if isinstance(y, list):
             y = np.array(y)
 
+        # Columns in X are assigned to the features of the object
         self.features = list(X.columns)
 
+        # Merging X and y together into one
         y_series = pd.Series(y, name = "target_value", index = X.index)
         data = pd.concat([X, y_series], axis = 1)
 
+        # Define the aggregate function depending on the estimate
+        # assigned previously.
         agg_func = np.mean if self.estimate == 'mean' else np.median
 
+        # Group by function using the aggregate function
         self.group_map = data.groupby(self.features)['target_value'].agg(agg_func).to_dict()
         
         return self

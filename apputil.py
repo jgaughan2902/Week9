@@ -10,6 +10,9 @@ class GroupEstimate(object):
         self.estimate = estimate.lower()
     
     def fit(self, X, y):
+        if isinstance(y, list):
+            y = np.array(y)
+
         X_columns = list(X.columns)
 
         y_series = pd.Series(y, name = "target_value", index = X.index)

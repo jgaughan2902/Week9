@@ -30,7 +30,7 @@ class GroupEstimate(object):
 
         group_keys = [tuple(row) for row in X_.values]
 
-        predictions = [self.group_map.get(key) for key in group_keys]
+        predictions = [self.group_map.get(key, np.nan) for key in group_keys]
 
         predictions_array = np.array(predictions)
 

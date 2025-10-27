@@ -20,7 +20,7 @@ class GroupEstimate(object):
 
         agg_func = np.mean if self.estimate == 'mean' else np.median
 
-        self.group_map = data.groupby(X_columns)['target_value'].agg(agg_func).to_dict()
+        self.group_map = data.groupby(self.features)['target_value'].agg(agg_func).to_dict()
         
         return self
 

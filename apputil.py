@@ -32,4 +32,11 @@ class GroupEstimate(object):
 
         predictions = [self.group_map.get(key) for key in group_keys]
 
-        return np.array(predictions)
+        predictions_array = np.array(predictions)
+
+        missing_count = np.sum(np.isnan(predictions_array))
+
+        if missing_count > 0:
+            print(f'There are {missing_count} observation contained group(s) that were assigned to NaN')
+
+        return(predictions_array)

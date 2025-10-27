@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def GroupEstimate(object):
+class GroupEstimate(object):
     def __init__(self, estimate):
         valid_estimate = ['mean', 'median']
         if estimate.lower() not in valid_estimate:

@@ -13,7 +13,7 @@ class GroupEstimate(object):
         if isinstance(y, list):
             y = np.array(y)
 
-        X_columns = list(X.columns)
+        self.features = list(X.columns)
 
         y_series = pd.Series(y, name = "target_value", index = X.index)
         data = pd.concat([X, y_series], axis = 1)
@@ -25,6 +25,9 @@ class GroupEstimate(object):
         return self
 
     def predict(self, X_):
+        if isinstance(X_, (list, np.ndarray)):
+            X_ = pd.DataFrame(X_, columns = self.features)
+
         group_keys = [tuple(row) for row in X_.values]
 
         predictions = [self.group_map.get(key) for key in group_keys]

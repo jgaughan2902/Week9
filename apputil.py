@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 class GroupEstimate(object):
     def __init__(self, estimate):
@@ -18,7 +18,12 @@ class GroupEstimate(object):
         agg_func = np.mean if self.estimate == 'mean' else np.median
 
         self.group_map = data.groupby(X_columns)['target_value'].agg(agg_func).to_dict
+        
         return self
 
-    def predict(self, X):
-        return None
+    def predict(self, X_):
+        group_keys = [tuple(row) for row in X_.values]
+
+        predictions = [self.group_map.get(key) for key in group_keys]
+
+        return np.array(predictions)
